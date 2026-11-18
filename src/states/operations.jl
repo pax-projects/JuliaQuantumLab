@@ -71,3 +71,15 @@ function basis_state(n::Integer, index::Integer)
 
     return QuantumState(amplitudes)
 end
+
+function apply_gate(gate::AbstractGate, state::QuantumState)
+    gate_matrix = matrix(gate)
+
+    if size(gate_matrix, 2) != length(state.amplitudes)
+        throw(DimensionMismatch("Gate and state dimensions do not match."))
+    end
+
+    transformed = gate_matrix * state.amplitudes
+
+    return QuantumState(transformed)
+end

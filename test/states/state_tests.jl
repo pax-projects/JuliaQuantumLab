@@ -1,7 +1,4 @@
-using Test
-using JuliaQuantumLab
-
-@testset "JuliaQuantumLab" begin
+@testset "QuantumState Tests" begin
 
     @testset "QuantumState construction" begin
 
