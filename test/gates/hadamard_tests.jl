@@ -1,3 +1,5 @@
+import JuliaQuantumLab: matrix
+
 @testset "Hadamard Gate Tests" begin
 
     @testset "Hadamard" begin
@@ -12,9 +14,7 @@
     end
 
     @testset "Hadamard squared = Id" begin
-        H_matrix = JuliaQuantumLab.matrix(H)
-
-        @test isapprox(H_matrix ^ 2, Matrix{ComplexF64}(I, 2, 2); atol=1e-10)
+        @test isapprox(matrix(H) ^ 2, Matrix{ComplexF64}(I, 2, 2); atol=1e-10)
     end
 
 end
