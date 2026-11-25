@@ -7,33 +7,43 @@ using Random
 include("gates/abstract_gate.jl")
 include("gates/pauli.jl")
 include("gates/hadamard.jl")
-include("gates/controlled.jl")
+include("gates/controlled_gates.jl")
 
 # Quantum states
 include("states/state.jl")
 include("states/operations.jl")
+include("states/gate_application.jl")
 
-# Quantum circuits
-include("circuits/circuit.jl")
+# Quantum circuit
+include("circuit/circuit.jl")
+include("circuit/evolution.jl")
 
 # Quantum simulator
 include("simulator/simulator.jl")
 include("simulator/measurement.jl")
 
 # Public API
+# States
 export QuantumState
-export nqubits
-export probabilities
 export zero_state
 export one_state
 export basis_state
+export nqubits
+export probabilities
 
-export I
-export X
-export Y
-export Z
-export H
+# Gates
+export I, X, Y, Z, H
+export CNOT
 
+# Gate operations
 export apply_gate
 
+# Circuits
+export QuantumCircuit
+export add_gate
+export EvolutionIterator, evolve
+
+# Simulation
+export Simulator
+export simulate
 end

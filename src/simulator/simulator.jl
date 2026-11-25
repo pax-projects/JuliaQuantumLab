@@ -1,16 +1,37 @@
-"""
-    apply_gate(gate, state)
+struct Simulator
 
-Apply gate to the state by creating a new state gate(state).
-"""
-function apply_gate(gate::AbstractGate, state::QuantumState)
-    gate_matrix = matrix(gate)
+    current_state::QuantumState
 
-    if size(gate_matrix, 2) != length(state.amplitudes)
-        throw(DimensionMismatch("Gate and state dimensions do not match."))
+    shots::Int
+
+    seed::Int
+
+    function Simulator(base_state::QuantumState, shots::Int; seed::Int = 42)
+        new(
+            base_state,
+            shots,
+            seed
+        )
+    end
+end
+
+
+"""
+    simulate(circuit)
+
+Simulate a circuit.
+"""
+function simulate(
+    simulator::Simulator,
+    circuit::QuantumCircuit
+)::QuantumState
+
+    for layer in circuit.layers
+        # TODO Multithread this loop
+        for gate in layer
+            current_state = apply_gate(gate[1], current_state)
+        end
     end
 
-    transformed = gate_matrix * state.amplitudes
-
-    return QuantumState(transformed)
+    return current_state
 end

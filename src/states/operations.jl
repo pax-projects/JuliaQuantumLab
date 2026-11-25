@@ -39,11 +39,16 @@ end
 """
     one_state()
 
-Create the |1⟩ computational basis state.
+Create the |11...1⟩ computational basis state.
 """
-function one_state()
+function one_state(n::Integer=1)
 
-    amplitudes = ComplexF64[0, 1]
+    if n < 1
+        throw(ArgumentError("Number of qubits must be positive."))
+    end
+
+    amplitudes = zeros(ComplexF64, 2^n)
+    amplitudes[end] = 1.0 + 0.0im
 
     return QuantumState(amplitudes)
 end
